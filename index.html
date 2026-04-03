@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romantic Loire Valley — July 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F1;
+    --ink: #2C2420;
+    --wine: #7B2D3B;
+    --wine-light: #A3475A;
+    --gold: #C8A96E;
+    --gold-light: #E8D5A8;
+    --sage: #7A8B6F;
+    --stone: #D4CCC4;
+    --stone-dark: #9E9488;
+    --blush: #F0E4DA;
+    --shadow: rgba(44,36,32,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 3rem 2rem; overflow: hidden; background: linear-gradient(165deg, var(--cream) 0%, var(--blush) 40%, var(--gold-light) 100%); }
+  .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8A96E' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.7; }
+  .hero-ornament { font-size: 3rem; color: var(--gold); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 1s ease forwards 0.2s; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 700; line-height: 1.1; color: var(--ink); position: relative; opacity: 0; animation: fadeUp 1s ease forwards 0.4s; }
+  .hero h1 em { font-style: italic; color: var(--wine); }
+  .hero-sub { font-size: 1.1rem; font-weight: 300; color: var(--stone-dark); margin-top: 1.2rem; letter-spacing: 0.03em; max-width: 520px; opacity: 0; animation: fadeUp 1s ease forwards 0.6s; }
+  .hero-details { display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center; opacity: 0; animation: fadeUp 1s ease forwards 0.8s; }
+  .hero-detail { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .hero-detail-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--stone-dark); font-weight: 500; }
+  .hero-detail-value { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--wine); font-weight: 600; }
+  .halal-badge { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.8rem; padding: 0.5rem 1.2rem; background: rgba(122,139,111,0.12); border: 1px solid rgba(122,139,111,0.25); border-radius: 100px; font-size: 0.8rem; font-weight: 500; color: var(--sage); opacity: 0; animation: fadeUp 1s ease forwards 0.9s; }
+  .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 1s ease forwards 1s; }
+  .scroll-hint span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--stone-dark); }
+  .scroll-arrow { width: 1px; height: 40px; background: var(--gold); animation: pulse 2s ease-in-out infinite; }
+
+  .day-nav { position: sticky; top: 0; z-index: 100; background: rgba(250,246,241,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--stone); }
+  .day-nav-inner { display: flex; max-width: 960px; margin: 0 auto; overflow-x: auto; scrollbar-width: none; }
+  .day-nav-inner::-webkit-scrollbar { display: none; }
+  .day-tab { flex: 1; min-width: 100px; padding: 1rem 1rem; text-align: center; cursor: pointer; border: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500; color: var(--stone-dark); letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.3s ease; border-bottom: 2px solid transparent; }
+  .day-tab:hover { color: var(--ink); }
+  .day-tab.active { color: var(--wine); border-bottom-color: var(--wine); font-weight: 600; }
+  .day-tab-title { display: block; font-family: 'Playfair Display', serif; font-size: 0.7rem; font-weight: 400; text-transform: none; letter-spacing: 0; margin-top: 0.2rem; color: var(--stone-dark); opacity: 0.8; }
+  .day-tab.active .day-tab-title { color: var(--wine-light); opacity: 1; }
+
+  .content { max-width: 820px; margin: 0 auto; padding: 0 2rem 6rem; }
+  .day-section { display: none; animation: fadeIn 0.5s ease; }
+  .day-section.active { display: block; }
+  .day-header { padding: 3rem 0 2rem; border-bottom: 1px solid var(--stone); margin-bottom: 2.5rem; }
+  .day-number { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold); font-weight: 600; }
+  .day-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; color: var(--ink); margin-top: 0.5rem; }
+  .day-narrative { font-size: 1rem; font-weight: 300; color: var(--stone-dark); margin-top: 0.8rem; line-height: 1.7; max-width: 600px; }
+
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--gold-light), var(--stone), transparent); }
+  .stop { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
+  .stop::before { content: ''; position: absolute; left: -2.35rem; top: 1.6rem; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); border: 2px solid var(--cream); box-shadow: 0 0 0 3px var(--gold-light); }
+  .stop-time { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sage); font-weight: 600; margin-bottom: 0.5rem; }
+
+  .stop-card { background: white; border-radius: 16px; padding: 1.8rem; box-shadow: 0 2px 20px var(--shadow), 0 1px 3px rgba(44,36,32,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .stop-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(44,36,32,0.1), 0 2px 6px rgba(44,36,32,0.06); }
+  .stop-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+  .stop-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; color: var(--ink); }
+
+  .stop-badge { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.3rem 0.7rem; border-radius: 100px; font-weight: 600; white-space: nowrap; }
+  .badge-stay { background: var(--blush); color: var(--wine); }
+  .badge-eat { background: #FFF3E0; color: #BF6C00; }
+  .badge-visit { background: #E8F5E9; color: #2E7D32; }
+  .badge-night { background: #EDE7F6; color: #5E35B1; }
+  .badge-halal { background: #E8F5E9; color: #2E7D32; }
+  .badge-cycle { background: #E3F2FD; color: #1565C0; }
+
+  .stop-rating { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem; font-size: 0.85rem; color: var(--stone-dark); }
+  .stop-stars { color: var(--gold); font-size: 0.9rem; }
+  .stop-notes { margin-top: 1rem; font-size: 0.92rem; color: var(--ink); line-height: 1.7; font-weight: 300; padding-top: 1rem; border-top: 1px solid var(--blush); }
+  .stop-meta { display: flex; gap: 1.2rem; margin-top: 1rem; flex-wrap: wrap; }
+  .stop-meta-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.78rem; color: var(--stone-dark); }
+
+  .tip-box { margin-top: 0.8rem; padding: 0.8rem 1rem; background: rgba(122,139,111,0.08); border-left: 3px solid var(--sage); border-radius: 0 8px 8px 0; font-size: 0.85rem; color: var(--sage); line-height: 1.5; }
+  .tip-box strong { color: #5D7350; font-weight: 600; }
+  .night-box { margin-top: 0.8rem; padding: 0.8rem 1rem; background: rgba(94,53,177,0.06); border-left: 3px solid #7E57C2; border-radius: 0 8px 8px 0; font-size: 0.85rem; color: #5E35B1; line-height: 1.5; }
+  .night-box strong { font-weight: 600; }
+
+  .info-section { margin-top: 1rem; padding: 2.5rem; border-radius: 20px; color: white; }
+  .info-section h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 1.5rem; }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+  .info-item { background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); border-radius: 12px; padding: 1.2rem; border: 1px solid rgba(255,255,255,0.15); }
+  .info-item h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 0.5rem; }
+  .info-item p { font-size: 0.9rem; line-height: 1.5; font-weight: 300; }
+
+  .footer { text-align: center; padding: 3rem 2rem; color: var(--stone-dark); font-size: 0.8rem; font-weight: 300; }
+  .footer-ornament { color: var(--gold); font-size: 1.5rem; margin-bottom: 0.8rem; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+  @media (max-width: 600px) { .hero { min-height: 90vh; padding: 2rem 1.5rem; } .content { padding: 0 1.2rem 4rem; } .stop-card { padding: 1.4rem; } .info-section { padding: 1.8rem; } .day-tab { min-width: 85px; padding: 0.8rem 0.6rem; font-size: 0.7rem; } }
+  @media print { .day-nav { position: relative; } .day-section { display: block !important; page-break-inside: avoid; } .stop-card:hover { transform: none; } }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-ornament">&#x2726;</div>
+  <h1>Romantic<br><em>Loire Valley</em></h1>
+  <p class="hero-sub">A long weekend of chateaux, night gardens, riverside cycling, and cobbled villages &mdash; designed around the long summer evenings</p>
+  <p style="font-size: 0.8rem; font-weight: 400; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 1rem; opacity: 0; animation: fadeUp 1s ease forwards 0.65s;">Created by Iman</p>
+  <div class="hero-details">
+    <div class="hero-detail"><span class="hero-detail-label">When</span><span class="hero-detail-value">July 2026</span></div>
+    <div class="hero-detail"><span class="hero-detail-label">Duration</span><span class="hero-detail-value">4 Nights</span></div>
+    <div class="hero-detail"><span class="hero-detail-label">Base</span><span class="hero-detail-value">Amboise</span></div>
+    <div class="hero-detail"><span class="hero-detail-label">Vibe</span><span class="hero-detail-value">Quiet &amp; Romantic</span></div>
+  </div>
+  <div class="halal-badge">Halal-friendly &middot; Alcohol-free</div>
+  <div class="scroll-hint"><span>Explore</span><div class="scroll-arrow"></div></div>
+</section>
+
+<nav class="day-nav"><div class="day-nav-inner">
+  <button class="day-tab active" data-day="1">Day 1<span class="day-tab-title">Arrive &amp; Explore</span></button>
+  <button class="day-tab" data-day="2">Day 2<span class="day-tab-title">Chenonceau by Night</span></button>
+  <button class="day-tab" data-day="3">Day 3<span class="day-tab-title">Chambord &amp; Light Show</span></button>
+  <button class="day-tab" data-day="4">Day 4<span class="day-tab-title">Da Vinci &amp; Farewell</span></button>
+  <button class="day-tab" data-day="food">Food Guide<span class="day-tab-title">Halal Dining</span></button>
+  <button class="day-tab" data-day="tips">Travel Tips<span class="day-tab-title">July &amp; Practical</span></button>
+</div></nav>
+
+<main class="content">
+
+  <!-- DAY 1 -->
+  <section class="day-section active" data-day="1">
+    <div class="day-header"><div class="day-number">Day One</div><h2 class="day-title">Arrive &amp; Explore Amboise</h2><p class="day-narrative">Settle in, then take advantage of the long July evening &mdash; sunset isn't until after 9:30pm. The town empties out beautifully after the day-trippers leave around 6pm.</p></div>
+    <div class="timeline">
+
+      <div class="stop"><div class="stop-time">3:00 PM &mdash; Check In</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">La Dilecta B&amp;B</div><span class="stop-badge badge-stay">Stay</span></div><div class="stop-rating"><span class="stop-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 5.0 &middot; 79 reviews</div><p class="stop-notes">Your home for four nights. Run by Barbara in the centre of Amboise on the quayside. The loft suite is spacious and romantic, breakfasts are homemade, and there's a secret garden with a resident cat called Romeo. The guest kitchen means you can self-cater whenever you like.</p><div class="stop-meta"><span class="stop-meta-item">6 Quai des Marais, Amboise</span><span class="stop-meta-item">+33 7 66 39 38 03</span><span class="stop-meta-item">ladilecta.com</span></div><div class="tip-box"><strong>Halal tip:</strong> Let Barbara know your dietary needs when booking &mdash; she accommodates guests warmly. The guest kitchen is perfect for cooking with fresh market produce.</div></div></div>
+
+      <div class="stop"><div class="stop-time">5:00 PM &mdash; Golden Hour</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Chateau Royal d'Amboise</div><span class="stop-badge badge-visit">Visit</span></div><div class="stop-rating"><span class="stop-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.5 &middot; 29,671 reviews</div><p class="stop-notes">Visit late afternoon when the day-trip coaches have gone. In July it's open until 7pm &mdash; the terraces and gardens are glorious in the golden light, with panoramic views over the Loire. Most visitors come in the morning, so the last two hours are noticeably quieter.</p><div class="stop-meta"><span class="stop-meta-item">Montee de l'Emir Abd el Kader, Amboise</span><span class="stop-meta-item">Open 9am&ndash;7pm (July)</span></div><div class="tip-box"><strong>Did you know?</strong> The street to the chateau is named after Emir Abd el-Kader, the Algerian resistance leader held here in the 1840s. A real piece of Islamic history in Amboise.</div></div></div>
+
+      <div class="stop"><div class="stop-time">8:00 PM &mdash; Evening Stroll &amp; Dinner</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Loire Riverside Walk &amp; Power One Sushi</div><span class="stop-badge badge-halal">Halal</span></div><p class="stop-notes">Walk along the quayside as the light turns amber, cross the bridge for a photo of the chateau at golden hour, then head to Power One Sushi &mdash; halal-certified Japanese/Asian in Amboise. Fresh sushi, samosas, Thai dishes. Not fancy, but reliable and well-reviewed.</p><div class="stop-meta"><span class="stop-meta-item">208 Avenue Leonard de Vinci</span><span class="stop-meta-item">+33 2 47 23 86 47</span><span class="stop-meta-item">Closed Mon &amp; Sun</span></div></div></div>
+
+    </div>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="day-section" data-day="2">
+    <div class="day-header"><div class="day-number">Day Two</div><h2 class="day-title">Chenonceau &mdash; Day &amp; Night</h2><p class="day-narrative">The signature day. See the most romantic chateau in France twice: once in the morning calm, and again at night when the gardens are illuminated with classical music and you'll have the place almost entirely to yourselves.</p></div>
+    <div class="timeline">
+
+      <div class="stop"><div class="stop-time">9:30 AM &mdash; Morning Visit</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Chateau de Chenonceau</div><span class="stop-badge badge-visit">Visit</span></div><div class="stop-rating"><span class="stop-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.7 &middot; 48,534 reviews</div><p class="stop-notes">Arrive right at opening for the quietest experience. The gallery stretching across the River Cher is breathtaking. Explore the interiors, the flower arrangements (Chenonceau is famous for them), and the formal gardens of Diane de Poitiers and Catherine de Medici. In July you can also take a boat trip on the Cher beneath the arches &mdash; a uniquely romantic experience.</p><div class="stop-meta"><span class="stop-meta-item">Chenonceaux (25 min drive from Amboise)</span><span class="stop-meta-item">Open 9:30am&ndash;6:30pm (July)</span><span class="stop-meta-item">Pre-book timed entry online</span></div></div></div>
+
+      <div class="stop"><div class="stop-time">1:00 PM &mdash; Afternoon</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Chateau de Villandry Gardens</div><span class="stop-badge badge-visit">Visit</span></div><div class="stop-rating"><span class="stop-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.7 &middot; 19,978 reviews</div><p class="stop-notes">July is absolute peak bloom. Six levels of Renaissance gardens with 1,000+ lime trees, ornamental flower beds, a water garden, and the famous geometric vegetable garden. Villandry is naturally less crowded than Chenonceau and Chambord, making it a welcome contrast. Many visitors rank these gardens above every other chateau they see in the Loire.</p><div class="stop-meta"><span class="stop-meta-item">Villandry (40 min from Amboise)</span><span class="stop-meta-item">Open 9am&ndash;7pm (July)</span></div><div class="tip-box"><strong>Picnic idea:</strong> Pick up fresh bread, cheese, olives, fruit and pastries from a boulangerie and eat in the grounds &mdash; a perfectly romantic halal-friendly lunch with garden views.</div></div></div>
+
+      <div class="stop"><div class="stop-time">After dark &mdash; Return Visit</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Chenonceau Night Garden Promenade</div><span class="stop-badge badge-night">After Dark</span></div><p class="stop-notes">This is the highlight of the entire trip. On summer evenings, Chenonceau opens its gardens for a nocturnal promenade &mdash; the chateau illuminated over the river, the gardens lit with soft lighting, and the music of Corelli drifting through the air. The crowds are gone. It's just you, the gardens, the river, and the lit-up Renaissance arches. Genuinely one of the most romantic things you can do in France.</p><div class="night-box"><strong>Summer only:</strong> The Nocturnal Promenades run on select evenings in July and August. Check chenonceau.com for exact dates. Arrive as it gets dark (~10pm). This experience is completely different from the daytime visit.</div></div></div>
+
+    </div>
+  </section>
+
+  <!-- DAY 3 -->
+  <section class="day-section" data-day="3">
+    <div class="day-header"><div class="day-number">Day Three</div><h2 class="day-title">Chambord, Cycling &amp; the Blois Light Show</h2><p class="day-narrative">The grandest chateau first thing, then a lazy riverside cycle along the Loire in the afternoon warmth, and a spectacular 360-degree light show projected onto a castle courtyard after dark.</p></div>
+    <div class="timeline">
+
+      <div class="stop"><div class="stop-time">9:00 AM &mdash; First In</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Chateau de Chambord</div><span class="stop-badge badge-visit">Visit</span></div><div class="stop-rating"><span class="stop-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.6 &middot; 61,961 reviews</div><p class="stop-notes">Arrive at 9am when the doors open &mdash; you'll have at least 90 minutes before it gets busy. The double-helix staircase (two intertwined staircases where people going up never meet those coming down) is attributed to da Vinci. Climb to the rooftop terrace for sweeping views of the 5,440-hectare park. The morning light here is extraordinary.</p><div class="stop-meta"><span class="stop-meta-item">Chambord (50 min from Amboise)</span><span class="stop-meta-item">Open 9am&ndash;6pm</span><span class="stop-meta-item">Arrive at opening for quietest visit</span></div></div></div>
+
+      <div class="stop"><div class="stop-time">2:00 PM &mdash; Afternoon</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Loire a Velo &mdash; Riverside Cycling</div><span class="stop-badge badge-cycle">Cycle</span></div><p class="stop-notes">Back in Amboise, rent bikes and cycle the Loire a Velo route along the river. It's flat, well-marked, and beautiful in July &mdash; fields of sunflowers, quiet river views, and barely a car in sight. Cycle east towards Chaumont-sur-Loire or west towards Tours. This is the antidote to chateau crowds: just you, the bikes, and the river.</p><div class="stop-meta"><span class="stop-meta-item">Bike hire available in Amboise centre</span><span class="stop-meta-item">Loire a Velo route &mdash; flat and easy</span></div><div class="tip-box"><strong>Route idea:</strong> Amboise to Chaumont-sur-Loire is about 20km each way along the river. Stop at Chaumont's International Garden Festival (on in July) for extraordinary contemporary garden installations &mdash; a hidden gem most tourists miss.</div></div></div>
+
+      <div class="stop"><div class="stop-time">7:00 PM &mdash; Explore Blois</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Old Town Blois &amp; Dinner</div><span class="stop-badge badge-eat">Explore</span></div><p class="stop-notes">Drive to Blois (35 min) for the evening. Wander the steep cobbled lanes of the old town, grab dinner from a creperie (buckwheat galettes with egg, cheese, mushrooms &mdash; naturally halal, just say "sans porc") or find a kebab spot near the centre. Then head to the chateau courtyard.</p></div></div>
+
+      <div class="stop"><div class="stop-time">10:30 PM &mdash; The Show</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Chateau de Blois Son et Lumiere</div><span class="stop-badge badge-night">After Dark</span></div><p class="stop-notes">A 45-minute 360-degree video projection mapped onto all four facades of the chateau courtyard. Walls collapse, Catherine de Medici appears, the Duke of Guise is more alive than ever &mdash; love stories, tragedies and secrets projected in immersive detail. Narrated by famous French actors with English translation via headsets. This is something you can only see in summer, and it's spectacular.</p><div class="stop-meta"><span class="stop-meta-item">Chateau Royal de Blois</span><span class="stop-meta-item">10:30pm start (July)</span><span class="stop-meta-item">English headsets available</span></div><div class="night-box"><strong>July bonus:</strong> The late 10:30pm start means you have a full evening in Blois first. The show runs April&ndash;September. Book combined chateau + show tickets online at chateaudeblois.fr (available from March 2026).</div></div></div>
+
+    </div>
+  </section>
+
+  <!-- DAY 4 -->
+  <section class="day-section" data-day="4">
+    <div class="day-header"><div class="day-number">Day Four</div><h2 class="day-title">Da Vinci's Home &amp; Farewell Lunch</h2><p class="day-narrative">A relaxed final morning at Leonardo da Vinci's last home &mdash; an intimate, personal visit without the grand-chateau crowds &mdash; then a farewell lunch at a wonderful Syrian restaurant in Tours before heading home.</p></div>
+    <div class="timeline">
+
+      <div class="stop"><div class="stop-time">9:30 AM &mdash; Visit</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Chateau du Clos Luce</div><span class="stop-badge badge-visit">Visit</span></div><div class="stop-rating"><span class="stop-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.5 &middot; 23,381 reviews</div><p class="stop-notes">Where Leonardo da Vinci lived his final three years (1516&ndash;1519). See his bedroom, studio, and kitchen, then explore the gardens filled with life-size models of his inventions &mdash; flying machines, bridges, tanks. This is the most personal and intimate of the chateaux: less grand, far more moving. The gardens alone are worth an hour in the July warmth.</p><div class="stop-meta"><span class="stop-meta-item">2 Rue du Clos Luce, Amboise</span><span class="stop-meta-item">Open 9am&ndash;7pm (July)</span></div></div></div>
+
+      <div class="stop"><div class="stop-time">12:00 PM &mdash; Market Browse</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Amboise Friday Market</div><span class="stop-badge badge-visit">Explore</span></div><p class="stop-notes">If your last day falls on a Friday (or Sunday), catch the morning market along the Loire. Fresh produce, local cheeses, pastries, honey, and crafts. Less hectic than the Sunday market. Pick up some goodies for the road or as gifts to take home.</p></div></div>
+
+      <div class="stop"><div class="stop-time">1:00 PM &mdash; Farewell Lunch</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Alep &mdash; Syrian Restaurant, Tours</div><span class="stop-badge badge-halal">Halal</span></div><div class="stop-rating"><span class="stop-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.5 &middot; 368 reviews</div><p class="stop-notes">A hidden gem on Rue Colbert in Tours. Generous mezze platters, beautifully spiced grilled meats, and homemade knafeh for dessert. Run by a warm Syrian family &mdash; all halal, generous portions. A proper sit-down meal to end the trip. On the way to Tours station or the motorway.</p><div class="stop-meta"><span class="stop-meta-item">95 Rue Colbert, Tours (25 min from Amboise)</span><span class="stop-meta-item">+33 7 68 69 52 58</span><span class="stop-meta-item">Lunch: 11:30am&ndash;2:30pm (closed Sun)</span></div></div></div>
+
+      <div class="stop"><div class="stop-time">3:00 PM &mdash; Depart</div><div class="stop-card"><div class="stop-card-header"><div class="stop-name">Head Home</div><span class="stop-badge badge-visit">Travel</span></div><p class="stop-notes">Drive back to Calais (~4.5 hours) or take the TGV from Tours to Paris Montparnasse and Eurostar home. If driving, consider a stop in Chartres &mdash; the cathedral is extraordinary and only a small detour.</p></div></div>
+
+    </div>
+  </section>
+
+  <!-- FOOD GUIDE -->
+  <section class="day-section" data-day="food">
+    <div class="day-header"><div class="day-number">Halal Dining Guide</div><h2 class="day-title">Eating Well in the Loire Valley</h2><p class="day-narrative">Honest advice: Amboise is a small French town with limited halal restaurants. But with a bit of planning, you'll eat very well.</p></div>
+
+    <div class="info-section" style="background: linear-gradient(135deg, var(--sage), #5D7350);">
+      <h3>Your Food Strategy</h3>
+      <div class="info-grid">
+        <div class="info-item"><h4>Halal Restaurants</h4><p><strong>Amboise:</strong> Power One Sushi (halal Japanese/Asian, closed Mon &amp; Sun). <strong>Tours (25 min):</strong> Alep (Syrian, 4.5&#9733;), plus halal kebab and Middle Eastern spots on Rue Colbert.</p></div>
+        <div class="info-item"><h4>Seafood at French Restaurants</h4><p>Loire restaurants serve excellent fish. At any French restaurant, fish mains are safe &mdash; just ask "sans sauce au vin" (no wine sauce) and "sans porc" (no pork).</p></div>
+        <div class="info-item"><h4>Self-Catering</h4><p>Your B&amp;B has a guest kitchen. Amboise market (Fri &amp; Sun mornings) has incredible produce. Super U stocks halal meat. Buy fresh bread daily from any boulangerie.</p></div>
+        <div class="info-item"><h4>Creperies</h4><p>Buckwheat galettes with egg, cheese, mushrooms are naturally halal. Found everywhere. Just say "sans jambon, sans porc." A reliable option across Amboise, Blois, and Tours.</p></div>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem;"><div class="info-section" style="background: linear-gradient(135deg, var(--gold), #A88840);">
+      <h3>Key Halal Spots</h3>
+      <div class="info-grid">
+        <div class="info-item"><h4>Power One Sushi</h4><p>Amboise &middot; Halal certified &middot; Japanese/Asian<br>208 Av. Leonard de Vinci<br>+33 2 47 23 86 47<br>Closed Mon &amp; Sun</p></div>
+        <div class="info-item"><h4>Alep</h4><p>Tours &middot; Halal &middot; Syrian/Middle Eastern<br>95 Rue Colbert<br>+33 7 68 69 52 58<br>Closed Sunday</p></div>
+        <div class="info-item"><h4>Patisserie Bigot</h4><p>Amboise &middot; Legendary patisserie<br>Rue Nationale<br>Most French pastries are halal-friendly. Avoid rum baba. Their eclairs are famous.</p></div>
+        <div class="info-item"><h4>Amboise Market</h4><p>Friday &amp; Sunday mornings<br>Along the Loire riverbank<br>Fresh fruit, cheeses, olives, bread, pastries. Friday is quieter than Sunday.</p></div>
+      </div>
+    </div></div>
+
+    <div style="margin-top: 2rem;"><div class="info-section" style="background: linear-gradient(135deg, #5C6BC0, #3949AB);">
+      <h3>Useful French Phrases</h3>
+      <div class="info-grid">
+        <div class="info-item"><h4>At Restaurants</h4><p>"Je ne mange pas de porc" &mdash; I don't eat pork<br>"Sans alcool dans la cuisson" &mdash; No alcohol in cooking<br>"C'est halal?" &mdash; Is it halal?<br>"Le poisson, s'il vous plait" &mdash; The fish, please</p></div>
+        <div class="info-item"><h4>At Markets &amp; Shops</h4><p>"Avez-vous de la viande halal?" &mdash; Do you have halal meat?<br>"Sans porc" &mdash; Without pork<br>"C'est fait avec du saindoux?" &mdash; Made with lard?</p></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- TRAVEL TIPS -->
+  <section class="day-section" data-day="tips">
+    <div class="day-header"><div class="day-number">Practical Details</div><h2 class="day-title">July Travel Tips &amp; Booking</h2><p class="day-narrative">July is peak season but these tips will help you enjoy it rather than endure it.</p></div>
+
+    <div class="info-section" style="background: linear-gradient(135deg, var(--wine), var(--wine-light));">
+      <h3>Book First</h3>
+      <div class="info-grid">
+        <div class="info-item"><h4>Accommodation</h4><p>La Dilecta B&amp;B &mdash; email via ladilecta.com. July is peak, book ASAP. Mention halal dietary needs. Alternative: Chateau de Nazelles (4.9&#9733;, pool).</p></div>
+        <div class="info-item"><h4>Chenonceau Timed Entry</h4><p>Pre-book online at chenonceau.com to skip the queue. Also check dates for the summer Nocturnal Promenade.</p></div>
+        <div class="info-item"><h4>Blois Son et Lumiere</h4><p>Book combined chateau + show tickets at chateaudeblois.fr (available from March 2026). English headsets included.</p></div>
+        <div class="info-item"><h4>Transport</h4><p>Drive via Eurotunnel from Folkestone &mdash; most flexible option and you'll want a car for the chateaux. Or Eurostar + TGV + car hire in Tours.</p></div>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem;"><div class="info-section" style="background: linear-gradient(135deg, var(--sage), #5D7350);">
+      <h3>July Tips</h3>
+      <div class="info-grid">
+        <div class="info-item"><h4>Weather</h4><p>25&ndash;32&#176;C, long sunny days. Sunset ~9:45pm. Pack sunscreen, hats, and light layers for air-conditioned chateau interiors.</p></div>
+        <div class="info-item"><h4>Beat the Crowds</h4><p>Visit chateaux at opening (9&ndash;9:30am) or late afternoon (after 5pm). Use evenings for the night experiences &mdash; that's when July really shines. Weekdays are much quieter than weekends.</p></div>
+        <div class="info-item"><h4>Prayer Facilities</h4><p>Nearest mosque: Mosquee de Tours (Rue du Colombier, ~25 min). For Jumu'ah on Friday, route through Tours. Prayer room available in Tours city centre.</p></div>
+        <div class="info-item"><h4>Pass'Chateaux</h4><p>A combined pass covering Blois, Chambord, Amboise, and Clos Luce saves money and often includes skip-the-line. Available at bloischambord.co.uk.</p></div>
+      </div>
+    </div></div>
+
+    <div style="margin-top: 2rem;"><div class="info-section" style="background: linear-gradient(135deg, #37474F, #546E7A);">
+      <h3>Getting There from Kent</h3>
+      <div class="info-grid">
+        <div class="info-item"><h4>Option A &mdash; Drive</h4><p>Folkestone &#8594; Eurotunnel (35 min) &#8594; Calais &#8594; A26/A28 &#8594; Amboise. Total ~5 hours door to door. Most flexible &mdash; you'll want a car anyway.</p></div>
+        <div class="info-item"><h4>Option B &mdash; Train</h4><p>St Pancras &#8594; Paris Nord (Eurostar, 1h15) &#8594; Paris Montparnasse (metro) &#8594; Tours (TGV, 1h) &#8594; hire a car in Tours for the chateaux.</p></div>
+      </div>
+    </div></div>
+  </section>
+
+</main>
+
+<footer class="footer"><div class="footer-ornament">&#x2726;</div><p>Romantic Loire Valley &mdash; Designed for long summer evenings and quiet moments</p></footer>
+
+<script>
+document.querySelectorAll('.day-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const day = tab.dataset.day;
+    document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.day-section').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.day-section[data-day="${day}"]`).classList.add('active');
+    window.scrollTo({ top: document.querySelector('.day-nav').offsetTop, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
